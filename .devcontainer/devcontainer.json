@@ -1,0 +1,32 @@
+{
+    "name": "Warebot Jazzy Dev",
+    "build": {
+        // Point to the Dockerfile in the main folder
+        "dockerfile": "../Dockerfile",
+        "context": ".."
+    },
+    
+    // CRITICAL: These arguments allow GPU and GUI access
+    "runArgs": [
+        "--runtime=nvidia",
+        "--network=host",
+        "--privileged",
+        "--env=DISPLAY",
+        "--env=QT_X11_NO_MITSHM=1",
+        "--volume=/tmp/.X11-unix:/tmp/.X11-unix"
+    ],
+
+    // Set the user to root (default for our Dockerfile)
+    "remoteUser": "root",
+
+    // Install these extensions INSIDE the container automatically
+    "customizations": {
+        "vscode": {
+            "extensions": [
+                "ms-python.python",
+                "ms-vscode.cpptools",
+                "ms-iot.vscode-ros"
+            ]
+        }
+    }
+}
